@@ -86,14 +86,17 @@ export default function SchoolSettingsPage() {
             Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
           body: JSON.stringify({
-            studentId: "test-preview",
+            previewOnly: true,
             text,
             voiceId: voice.voice_id,
           }),
         }
       );
       const result = await response.json();
-      if (result.audio_url) {
+      if (result.audio_base64) {
+        const audio = new Audio(`data:audio/mpeg;base64,${result.audio_base64}`);
+        audio.play();
+      } else if (result.audio_url) {
         const audio = new Audio(result.audio_url);
         audio.play();
       }
