@@ -171,6 +171,15 @@ export default function StudentsPage() {
           );
         }
         toast.success("Aluno atualizado!");
+
+        // Auto-regenerate audio if name, grade, class or custom TTS text changed
+        const nameChanged = editingStudent.name !== name;
+        const gradeChanged = editingStudent.grade !== grade;
+        const classChanged = editingStudent.class !== cls;
+        const ttsChanged = (editingStudent.tts_custom_text || "") !== (ttsCustomText || "");
+        if (nameChanged || gradeChanged || classChanged || ttsChanged) {
+          generateAudio(editingStudent.id, name, grade, cls, ttsCustomText || null);
+        }
       } else {
         const { data, error } = await supabase.from("students").insert({
           name, grade, class: cls, period,
@@ -207,7 +216,8 @@ export default function StudentsPage() {
 
   const playAudio = (url: string, id: string) => {
     setPlayingAudio(id);
-    const audio = new Audio(url);
+    const cacheBustedUrl = `${url}?t=${Date.now()}`;
+    const audio = new Audio(cacheBustedUrl);
     audio.onended = () => setPlayingAudio(null);
     audio.play();
   };
