@@ -22,10 +22,10 @@ Deno.serve(async (req) => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const { studentId, text, voiceId } = await req.json();
+    const { studentId, text, voiceId, previewOnly } = await req.json();
 
-    if (!studentId || !text || !voiceId) {
-      throw new Error("Missing required fields: studentId, text, voiceId");
+    if (!text || !voiceId) {
+      throw new Error("Missing required fields: text, voiceId");
     }
 
     // Generate audio with ElevenLabs
@@ -58,6 +58,20 @@ Deno.serve(async (req) => {
 
     const audioBuffer = await ttsResponse.arrayBuffer();
     const audioBytes = new Uint8Array(audioBuffer);
+
+    // Preview mode: return audio as base64 without saving
+    if (previewOnly) {
+      const base64 = base64Encode(audioBytes);
+      return new Response(
+        JSON.stringify({ success: true, audio_base64: base64 }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (!studentId) {
+      throw new Error("Missing required field: studentId");
+    }
+
     const filePath = `${studentId}.mp3`;
 
     // Upload to storage
