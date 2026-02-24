@@ -75,7 +75,7 @@ export default function SchoolSettingsPage() {
   const testVoice = async (voice: VoiceSetting) => {
     setTestingVoice(voice.id);
     try {
-      const text = ttsTemplate.replace("{nome}", "Maria").replace("{serie}", "5º Ano");
+      const text = ttsTemplate.replace("{nome}", "Maria").replace("{serie}", "Terceiro").replace("{turma}", "Ano");
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-tts`,
         {
@@ -285,7 +285,7 @@ export default function SchoolSettingsPage() {
           <div className="grid gap-2">
             <Label>Modelo de frase TTS</Label>
             <Input value={ttsTemplate} onChange={(e) => setTtsTemplate(e.target.value)} />
-            <p className="text-xs text-muted-foreground">Use {"{nome}"} e {"{serie}"} como variáveis</p>
+            <p className="text-xs text-muted-foreground">Use {"{nome}"}, {"{serie}"} e {"{turma}"} como variáveis</p>
           </div>
         </div>
       </Card>

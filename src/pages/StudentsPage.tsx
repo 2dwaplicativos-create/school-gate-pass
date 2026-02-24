@@ -106,7 +106,7 @@ export default function StudentsPage() {
     setDialogOpen(true);
   };
 
-  const generateAudio = async (studentId: string, studentName: string, studentGrade: string, customText?: string | null) => {
+  const generateAudio = async (studentId: string, studentName: string, studentGrade: string, studentClass: string, customText?: string | null) => {
     setGeneratingAudio(studentId);
     try {
       // Get default voice
@@ -115,13 +115,13 @@ export default function StudentsPage() {
 
       // Get TTS template
       const { data: settings } = await supabase.from("school_settings").select("tts_template").limit(1).single();
-      const template = settings?.tts_template || "Atenção {nome} do {serie}";
+      const template = settings?.tts_template || "{nome} do {serie}";
 
       let text: string;
       if (customText && customText.trim()) {
         text = customText;
       } else {
-        text = template.replace("{nome}", studentName).replace("{serie}", studentGrade);
+        text = template.replace("{nome}", studentName).replace("{serie}", studentGrade).replace("{turma}", studentClass);
       }
 
       const response = await fetch(
@@ -187,7 +187,7 @@ export default function StudentsPage() {
 
         toast.success("Aluno cadastrado!");
         // Auto-generate audio
-        generateAudio(data.id, name, grade, ttsCustomText || null);
+        generateAudio(data.id, name, grade, cls, ttsCustomText || null);
       }
 
       setDialogOpen(false);
@@ -307,7 +307,7 @@ export default function StudentsPage() {
                     variant="outline"
                     className="gap-2 flex-1"
                     disabled={generatingAudio === editingStudent.id}
-                    onClick={() => generateAudio(editingStudent.id, name, grade, ttsCustomText || null)}
+                    onClick={() => generateAudio(editingStudent.id, name, grade, cls, ttsCustomText || null)}
                   >
                     {generatingAudio === editingStudent.id ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -388,7 +388,7 @@ export default function StudentsPage() {
                             <Volume2 className="h-3.5 w-3.5" />
                           </Button>
                           <Button size="sm" variant="ghost" className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
-                            onClick={() => generateAudio(student.id, student.name, student.grade, student.tts_custom_text)}>
+                            onClick={() => generateAudio(student.id, student.name, student.grade, student.class, student.tts_custom_text)}>
                             <RefreshCw className="h-3.5 w-3.5" />
                           </Button>
                         </div>
