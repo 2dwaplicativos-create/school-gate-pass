@@ -14,7 +14,176 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      guardians: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          phone: string | null
+          rfid_uid: string | null
+          status: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          phone?: string | null
+          rfid_uid?: string | null
+          status?: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          phone?: string | null
+          rfid_uid?: string | null
+          status?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      school_settings: {
+        Row: {
+          call_interval_seconds: number
+          created_at: string
+          default_voice_id: string | null
+          id: string
+          recall_block_minutes: number
+          tts_template: string
+          updated_at: string
+        }
+        Insert: {
+          call_interval_seconds?: number
+          created_at?: string
+          default_voice_id?: string | null
+          id?: string
+          recall_block_minutes?: number
+          tts_template?: string
+          updated_at?: string
+        }
+        Update: {
+          call_interval_seconds?: number
+          created_at?: string
+          default_voice_id?: string | null
+          id?: string
+          recall_block_minutes?: number
+          tts_template?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "school_settings_default_voice_id_fkey"
+            columns: ["default_voice_id"]
+            isOneToOne: false
+            referencedRelation: "voice_settings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_guardian: {
+        Row: {
+          guardian_id: string
+          id: string
+          student_id: string
+        }
+        Insert: {
+          guardian_id: string
+          id?: string
+          student_id: string
+        }
+        Update: {
+          guardian_id?: string
+          id?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_guardian_guardian_id_fkey"
+            columns: ["guardian_id"]
+            isOneToOne: false
+            referencedRelation: "guardians"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_guardian_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      students: {
+        Row: {
+          audio_url: string | null
+          class: string
+          created_at: string
+          grade: string
+          id: string
+          name: string
+          period: string
+          tts_custom_text: string | null
+          updated_at: string
+        }
+        Insert: {
+          audio_url?: string | null
+          class: string
+          created_at?: string
+          grade: string
+          id?: string
+          name: string
+          period: string
+          tts_custom_text?: string | null
+          updated_at?: string
+        }
+        Update: {
+          audio_url?: string | null
+          class?: string
+          created_at?: string
+          grade?: string
+          id?: string
+          name?: string
+          period?: string
+          tts_custom_text?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      voice_settings: {
+        Row: {
+          created_at: string
+          gender: string
+          id: string
+          is_default: boolean
+          language: string
+          name: string
+          voice_id: string
+        }
+        Insert: {
+          created_at?: string
+          gender: string
+          id?: string
+          is_default?: boolean
+          language?: string
+          name: string
+          voice_id: string
+        }
+        Update: {
+          created_at?: string
+          gender?: string
+          id?: string
+          is_default?: boolean
+          language?: string
+          name?: string
+          voice_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
