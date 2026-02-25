@@ -14,6 +14,183 @@ export type Database = {
   }
   public: {
     Tables: {
+      audio_settings: {
+        Row: {
+          created_at: string
+          dispositivo_saida: string
+          emergencia_interrompe_fila: boolean
+          id: string
+          intervalo_entre_chamadas_segundos: number
+          permitir_sobreposicao: boolean
+          prioridade_emergencia: number
+          prioridade_normal: number
+          prioridade_transporte: number
+          tamanho_maximo_fila: number
+          updated_at: string
+          volume_maximo: number
+        }
+        Insert: {
+          created_at?: string
+          dispositivo_saida?: string
+          emergencia_interrompe_fila?: boolean
+          id?: string
+          intervalo_entre_chamadas_segundos?: number
+          permitir_sobreposicao?: boolean
+          prioridade_emergencia?: number
+          prioridade_normal?: number
+          prioridade_transporte?: number
+          tamanho_maximo_fila?: number
+          updated_at?: string
+          volume_maximo?: number
+        }
+        Update: {
+          created_at?: string
+          dispositivo_saida?: string
+          emergencia_interrompe_fila?: boolean
+          id?: string
+          intervalo_entre_chamadas_segundos?: number
+          permitir_sobreposicao?: boolean
+          prioridade_emergencia?: number
+          prioridade_normal?: number
+          prioridade_transporte?: number
+          tamanho_maximo_fila?: number
+          updated_at?: string
+          volume_maximo?: number
+        }
+        Relationships: []
+      }
+      backup_settings: {
+        Row: {
+          created_at: string
+          destino_backup: string
+          frequencia_backup: string
+          habilitar_backup_automatico: boolean
+          horario_backup: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          destino_backup?: string
+          frequencia_backup?: string
+          habilitar_backup_automatico?: boolean
+          horario_backup?: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          destino_backup?: string
+          frequencia_backup?: string
+          habilitar_backup_automatico?: boolean
+          horario_backup?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      dhcp_reservations: {
+        Row: {
+          created_at: string
+          id: string
+          ip_reservado: string
+          mac_address: string
+          nome_dispositivo: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ip_reservado: string
+          mac_address: string
+          nome_dispositivo: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ip_reservado?: string
+          mac_address?: string
+          nome_dispositivo?: string
+        }
+        Relationships: []
+      }
+      dns_records: {
+        Row: {
+          created_at: string
+          hostname: string
+          id: string
+          ip: string
+        }
+        Insert: {
+          created_at?: string
+          hostname: string
+          id?: string
+          ip: string
+        }
+        Update: {
+          created_at?: string
+          hostname?: string
+          id?: string
+          ip?: string
+        }
+        Relationships: []
+      }
+      general_settings: {
+        Row: {
+          created_at: string
+          endereco: string | null
+          formato_data: string
+          fuso_horario: string
+          horario_funcionamento_fim: string
+          horario_funcionamento_inicio: string
+          id: string
+          idioma: string
+          intervalo_padrao_chamadas_segundos: number
+          logo_escola_url: string | null
+          modo_silencioso: boolean
+          nome_escola: string
+          telefone: string | null
+          tempo_maximo_fila: number
+          updated_at: string
+          volume_padrao: number
+        }
+        Insert: {
+          created_at?: string
+          endereco?: string | null
+          formato_data?: string
+          fuso_horario?: string
+          horario_funcionamento_fim?: string
+          horario_funcionamento_inicio?: string
+          id?: string
+          idioma?: string
+          intervalo_padrao_chamadas_segundos?: number
+          logo_escola_url?: string | null
+          modo_silencioso?: boolean
+          nome_escola?: string
+          telefone?: string | null
+          tempo_maximo_fila?: number
+          updated_at?: string
+          volume_padrao?: number
+        }
+        Update: {
+          created_at?: string
+          endereco?: string | null
+          formato_data?: string
+          fuso_horario?: string
+          horario_funcionamento_fim?: string
+          horario_funcionamento_inicio?: string
+          id?: string
+          idioma?: string
+          intervalo_padrao_chamadas_segundos?: number
+          logo_escola_url?: string | null
+          modo_silencioso?: boolean
+          nome_escola?: string
+          telefone?: string | null
+          tempo_maximo_fila?: number
+          updated_at?: string
+          volume_padrao?: number
+        }
+        Relationships: []
+      }
       guardians: {
         Row: {
           created_at: string
@@ -43,6 +220,171 @@ export type Database = {
           rfid_uid?: string | null
           status?: string
           type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      network_settings: {
+        Row: {
+          created_at: string
+          dhcp_faixa_final: string | null
+          dhcp_faixa_inicial: string | null
+          dhcp_tempo_lease_minutos: number
+          dns_atual: string | null
+          dns_primario: string | null
+          dns_secundario: string | null
+          gateway: string | null
+          gateway_atual: string | null
+          habilitar_dhcp: boolean
+          habilitar_dns_interno: boolean
+          habilitar_mdns: boolean
+          id: string
+          ip: string | null
+          ip_atual: string | null
+          mascara_subrede: string | null
+          modo_rede: string
+          nome_servidor: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          dhcp_faixa_final?: string | null
+          dhcp_faixa_inicial?: string | null
+          dhcp_tempo_lease_minutos?: number
+          dns_atual?: string | null
+          dns_primario?: string | null
+          dns_secundario?: string | null
+          gateway?: string | null
+          gateway_atual?: string | null
+          habilitar_dhcp?: boolean
+          habilitar_dns_interno?: boolean
+          habilitar_mdns?: boolean
+          id?: string
+          ip?: string | null
+          ip_atual?: string | null
+          mascara_subrede?: string | null
+          modo_rede?: string
+          nome_servidor?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          dhcp_faixa_final?: string | null
+          dhcp_faixa_inicial?: string | null
+          dhcp_tempo_lease_minutos?: number
+          dns_atual?: string | null
+          dns_primario?: string | null
+          dns_secundario?: string | null
+          gateway?: string | null
+          gateway_atual?: string | null
+          habilitar_dhcp?: boolean
+          habilitar_dns_interno?: boolean
+          habilitar_mdns?: boolean
+          id?: string
+          ip?: string | null
+          ip_atual?: string | null
+          mascara_subrede?: string | null
+          modo_rede?: string
+          nome_servidor?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      pending_readers: {
+        Row: {
+          data_solicitacao: string
+          id: string
+          ip: string
+          serial_dispositivo: string
+          status: string
+        }
+        Insert: {
+          data_solicitacao?: string
+          id?: string
+          ip: string
+          serial_dispositivo: string
+          status?: string
+        }
+        Update: {
+          data_solicitacao?: string
+          id?: string
+          ip?: string
+          serial_dispositivo?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      reader_settings: {
+        Row: {
+          aprovacao_automatica: boolean
+          created_at: string
+          faixa_ip_permitida: string | null
+          horario_permitido_fim: string | null
+          horario_permitido_inicio: string | null
+          id: string
+          modo_adocao: string
+          rotacionar_token: boolean
+          updated_at: string
+          validade_codigo_minutos: number
+        }
+        Insert: {
+          aprovacao_automatica?: boolean
+          created_at?: string
+          faixa_ip_permitida?: string | null
+          horario_permitido_fim?: string | null
+          horario_permitido_inicio?: string | null
+          id?: string
+          modo_adocao?: string
+          rotacionar_token?: boolean
+          updated_at?: string
+          validade_codigo_minutos?: number
+        }
+        Update: {
+          aprovacao_automatica?: boolean
+          created_at?: string
+          faixa_ip_permitida?: string | null
+          horario_permitido_fim?: string | null
+          horario_permitido_inicio?: string | null
+          id?: string
+          modo_adocao?: string
+          rotacionar_token?: boolean
+          updated_at?: string
+          validade_codigo_minutos?: number
+        }
+        Relationships: []
+      }
+      rfid_settings: {
+        Row: {
+          bloquear_uid_duplicado: boolean
+          created_at: string
+          id: string
+          max_tentativas_invalidas: number
+          permitir_multiplos_cartoes: boolean
+          tamanho_uid: number
+          tempo_bloqueio_minutos: number
+          tipo_cartao_suportado: string
+          updated_at: string
+        }
+        Insert: {
+          bloquear_uid_duplicado?: boolean
+          created_at?: string
+          id?: string
+          max_tentativas_invalidas?: number
+          permitir_multiplos_cartoes?: boolean
+          tamanho_uid?: number
+          tempo_bloqueio_minutos?: number
+          tipo_cartao_suportado?: string
+          updated_at?: string
+        }
+        Update: {
+          bloquear_uid_duplicado?: boolean
+          created_at?: string
+          id?: string
+          max_tentativas_invalidas?: number
+          permitir_multiplos_cartoes?: boolean
+          tamanho_uid?: number
+          tempo_bloqueio_minutos?: number
+          tipo_cartao_suportado?: string
           updated_at?: string
         }
         Relationships: []
@@ -84,6 +426,45 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      security_settings: {
+        Row: {
+          created_at: string
+          dias_retencao_logs: number
+          exigir_caractere_especial: boolean
+          faixa_ip_admin_permitido: string | null
+          habilitar_2fa: boolean
+          id: string
+          nivel_log: string
+          tamanho_minimo_senha: number
+          tempo_sessao_minutos: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          dias_retencao_logs?: number
+          exigir_caractere_especial?: boolean
+          faixa_ip_admin_permitido?: string | null
+          habilitar_2fa?: boolean
+          id?: string
+          nivel_log?: string
+          tamanho_minimo_senha?: number
+          tempo_sessao_minutos?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          dias_retencao_logs?: number
+          exigir_caractere_especial?: boolean
+          faixa_ip_admin_permitido?: string | null
+          habilitar_2fa?: boolean
+          id?: string
+          nivel_log?: string
+          tamanho_minimo_senha?: number
+          tempo_sessao_minutos?: number
+          updated_at?: string
+        }
+        Relationships: []
       }
       student_guardian: {
         Row: {
@@ -154,6 +535,57 @@ export type Database = {
         }
         Relationships: []
       }
+      transports: {
+        Row: {
+          audio_prefixo_grupo: string | null
+          chamada_em_grupo: boolean
+          created_at: string
+          id: string
+          nivel_prioridade: number
+          nome_motorista: string | null
+          nome_transporte: string
+          updated_at: string
+        }
+        Insert: {
+          audio_prefixo_grupo?: string | null
+          chamada_em_grupo?: boolean
+          created_at?: string
+          id?: string
+          nivel_prioridade?: number
+          nome_motorista?: string | null
+          nome_transporte: string
+          updated_at?: string
+        }
+        Update: {
+          audio_prefixo_grupo?: string | null
+          chamada_em_grupo?: boolean
+          created_at?: string
+          id?: string
+          nivel_prioridade?: number
+          nome_motorista?: string | null
+          nome_transporte?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       voice_settings: {
         Row: {
           created_at: string
@@ -189,10 +621,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "operador" | "visualizador"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -319,6 +757,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "operador", "visualizador"],
+    },
   },
 } as const
