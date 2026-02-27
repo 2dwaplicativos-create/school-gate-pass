@@ -37,13 +37,6 @@ interface DnsRecord {
   ip: string;
 }
 
-interface DhcpReservation {
-  id: string;
-  nome_dispositivo: string;
-  mac_address: string;
-  ip_reservado: string;
-}
-
 export default function NetworkSettings() {
   const [data, setData] = useState<NetworkData>({
     modo_rede: "DHCP", ip: "", mascara_subrede: "255.255.255.0", gateway: "",
@@ -53,20 +46,17 @@ export default function NetworkSettings() {
     dhcp_faixa_final: "", dhcp_tempo_lease_minutos: 60,
   });
   const [dnsRecords, setDnsRecords] = useState<DnsRecord[]>([]);
-  const [dhcpReservations, setDhcpReservations] = useState<DhcpReservation[]>([]);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => { fetchAll(); }, []);
 
   const fetchAll = async () => {
-    const [net, dns, dhcp] = await Promise.all([
+    const [net, dns] = await Promise.all([
       supabase.from("network_settings").select("*").limit(1).single(),
       supabase.from("dns_records").select("*").order("hostname"),
-      supabase.from("dhcp_reservations").select("*").order("nome_dispositivo"),
     ]);
     if (net.data) setData({ ...net.data });
     if (dns.data) setDnsRecords(dns.data);
-    if (dhcp.data) setDhcpReservations(dhcp.data);
   };
 
   const update = (field: keyof NetworkData, value: any) => setData((p) => ({ ...p, [field]: value }));
@@ -96,16 +86,6 @@ export default function NetworkSettings() {
 
   const deleteDns = async (id: string) => {
     await supabase.from("dns_records").delete().eq("id", id);
-    fetchAll();
-  };
-
-  const addDhcp = async () => {
-    await supabase.from("dhcp_reservations").insert({ nome_dispositivo: "Novo Dispositivo", mac_address: "00:00:00:00:00:00", ip_reservado: "192.168.1.100" });
-    fetchAll();
-  };
-
-  const deleteDhcp = async (id: string) => {
-    await supabase.from("dhcp_reservations").delete().eq("id", id);
     fetchAll();
   };
 
@@ -180,36 +160,6 @@ export default function NetworkSettings() {
             </div>
           )}
         </div>
-      </Card>
-
-      {/* DHCP */}
-      <Card className="border-0 shadow-card p-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-base font-semibold text-foreground">DHCP</h2>
-          <Switch checked={data.habilitar_dhcp} onCheckedChange={(v) => update("habilitar_dhcp", v)} />
-        </div>
-        <Separator className="my-4" />
-        {data.habilitar_dhcp && (
-          <div className="grid gap-4">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div className="grid gap-2"><Label>Faixa Inicial</Label><Input value={data.dhcp_faixa_inicial} onChange={(e) => update("dhcp_faixa_inicial", e.target.value)} /></div>
-              <div className="grid gap-2"><Label>Faixa Final</Label><Input value={data.dhcp_faixa_final} onChange={(e) => update("dhcp_faixa_final", e.target.value)} /></div>
-              <div className="grid gap-2"><Label>Lease (min)</Label><Input type="number" value={data.dhcp_tempo_lease_minutos} onChange={(e) => update("dhcp_tempo_lease_minutos", Number(e.target.value))} /></div>
-            </div>
-            <div className="flex items-center justify-between">
-              <Label className="text-muted-foreground">Reservas DHCP</Label>
-              <Button size="sm" variant="outline" className="gap-1" onClick={addDhcp}><Plus className="h-3.5 w-3.5" /> Adicionar</Button>
-            </div>
-            {dhcpReservations.map((r) => (
-              <div key={r.id} className="flex items-center gap-3 rounded-lg border border-border p-3">
-                <span className="text-sm font-medium">{r.nome_dispositivo}</span>
-                <Badge variant="outline" className="font-mono text-xs">{r.mac_address}</Badge>
-                <span className="text-sm font-mono">{r.ip_reservado}</span>
-                <Button size="sm" variant="ghost" className="ml-auto h-7 w-7 p-0" onClick={() => deleteDhcp(r.id)}><Trash2 className="h-3.5 w-3.5 text-destructive" /></Button>
-              </div>
-            ))}
-          </div>
-        )}
       </Card>
 
       <Button className="gradient-primary text-primary-foreground shadow-soft gap-2" onClick={save} disabled={saving}>
