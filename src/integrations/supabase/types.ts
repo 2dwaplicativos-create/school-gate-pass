@@ -353,6 +353,84 @@ export type Database = {
         }
         Relationships: []
       }
+      readers: {
+        Row: {
+          allow_outside_schedule: boolean
+          allowed_end_time: string | null
+          allowed_ip_range: string | null
+          allowed_mac: string | null
+          allowed_start_time: string | null
+          created_at: string
+          device_id: string
+          display_pre_queue_message: string | null
+          display_release_message: string | null
+          display_status_message: string | null
+          firmware: string | null
+          id: string
+          ip: string | null
+          last_seen: string | null
+          location: string | null
+          mac: string | null
+          maintenance_mode: boolean
+          name: string | null
+          online: boolean
+          status: string
+          temporary_message_timeout: number
+          token: string | null
+          updated_at: string
+        }
+        Insert: {
+          allow_outside_schedule?: boolean
+          allowed_end_time?: string | null
+          allowed_ip_range?: string | null
+          allowed_mac?: string | null
+          allowed_start_time?: string | null
+          created_at?: string
+          device_id: string
+          display_pre_queue_message?: string | null
+          display_release_message?: string | null
+          display_status_message?: string | null
+          firmware?: string | null
+          id?: string
+          ip?: string | null
+          last_seen?: string | null
+          location?: string | null
+          mac?: string | null
+          maintenance_mode?: boolean
+          name?: string | null
+          online?: boolean
+          status?: string
+          temporary_message_timeout?: number
+          token?: string | null
+          updated_at?: string
+        }
+        Update: {
+          allow_outside_schedule?: boolean
+          allowed_end_time?: string | null
+          allowed_ip_range?: string | null
+          allowed_mac?: string | null
+          allowed_start_time?: string | null
+          created_at?: string
+          device_id?: string
+          display_pre_queue_message?: string | null
+          display_release_message?: string | null
+          display_status_message?: string | null
+          firmware?: string | null
+          id?: string
+          ip?: string | null
+          last_seen?: string | null
+          location?: string | null
+          mac?: string | null
+          maintenance_mode?: boolean
+          name?: string | null
+          online?: boolean
+          status?: string
+          temporary_message_timeout?: number
+          token?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       rfid_settings: {
         Row: {
           bloquear_uid_duplicado: boolean
