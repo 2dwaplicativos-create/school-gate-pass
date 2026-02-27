@@ -706,6 +706,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      mark_offline_readers: { Args: never; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "operador" | "visualizador"
